@@ -91,7 +91,7 @@ const byte version = 34;         // firmware version divide by 10 to get version
 boolean DEBUG = 1;                       // Print serial debug
 
 //----------------------------emonTx V3 Settings---------------------------------------------------------------------------------------------------------------
-byte Vrms=                        250;            // Vrms for apparent power readings (when no AC-AC voltage sample is present)
+byte Vrms=                        230;            // Vrms for apparent power readings (when no AC-AC voltage sample is present)
 const byte Vrms_USA=              120;            // VRMS for USA apparent power
 const byte TIME_BETWEEN_READINGS = 10;            //Time between readings
 
@@ -419,8 +419,9 @@ void loop()
     if (analogRead(1) == 0) emontx.power1=0;                  // CT disconnected
   }
 
+  /* JVA 20251025 - we have forced to use apparant power for CT2, CT3, and CT4 */
   if (CT2 || ACAC) {
-    if (ACAC) {
+    if (ACAC && 0) {
       ct2.calcVI(no_of_half_wavelengths,timeout);
       emontx.power2=ct2.realPower;
       emontx.Vrms=ct2.Vrms*100;
@@ -431,7 +432,7 @@ void loop()
   }
 
   if (CT3 || ACAC) {
-    if (ACAC) {
+    if (ACAC && 0 ) {
       ct3.calcVI(no_of_half_wavelengths,timeout);
       emontx.power3=ct3.realPower;
       emontx.Vrms=ct3.Vrms*100;
@@ -442,7 +443,7 @@ void loop()
   }
 
   if (CT4 || ACAC) {
-    if (ACAC) {
+    if (ACAC && 0) {
       ct4.calcVI(no_of_half_wavelengths,timeout);
       emontx.power4=ct4.realPower;
       emontx.Vrms=ct4.Vrms*100;
