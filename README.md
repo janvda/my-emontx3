@@ -9,7 +9,7 @@
 ### emon Tx V3 (£66.30 + VAT)
 
 * Order date 13th Dec 2014
-* RF Module: 433Mhz
+* RF Module: RFM12B 433Mhz
 * Node ID : 10 (default)
 * Enclosure: Fully Assembled
 * Clip-on CT Current Sensor: 1 x 100A Max Clip-on CT Sensor
@@ -46,8 +46,9 @@
 
 ## My Setup
 
-1. My emonTx sends power data every 10 seconds at 8xx mHz frequency for node 10
-2. which is received by my RFM69PI v3 expansion board on [pi3one](https://github.com/janvda/pi3one).
+1. My emonTx V3.4 sends power data every 10 seconds via RFM12B at 433 mHz frequency for node 10
+   * I have uploaded sketch `emonTx34_DS_jeelib_classic` of this repository
+2. which is received by my RFM12PI expansion board on [pi3one](https://github.com/janvda/pi3one).
 3. Emonhub on my pi3one is forwarding that data to my MQTT server running on pi3one using topic `emonhub/rx/10/values`
 4. This data is also received by my home-assistant MQTT broker running on nuc2 using MQTT bridge functionality
 5. home-assistant on nuc2 using MQTT integration connecting to my home assistant MQTT broker is receiving this data.
@@ -61,7 +62,11 @@ see also:
 ## Uploading (new) firmware
 
 Use arduino app on macbook.
-Install RFM69_LowPowerLab (v 1.6.0) library.
+
+Connected my macbook with emonTx using the `Programmer - USB to serial UART` device and micro USB cable.
+
+see also:
+* https://community.openenergymonitor.org/t/would-like-to-upgrade-old-firmware-on-my-emontx-v3-device
 
 ## Testing
 
