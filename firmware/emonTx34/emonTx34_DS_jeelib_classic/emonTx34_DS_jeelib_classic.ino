@@ -87,7 +87,7 @@ EnergyMonitor ct1, ct2, ct3, ct4;
 #include <DallasTemperature.h>                                        //http://download.milesburton.com/Arduino/MaximTemperature/DallasTemperature_LATEST.zip
 
 
-const byte version = 34;         // firmware version divide by 10 to get version number e,g 16 = v1.6
+const byte version = 35;         // firmware version divide by 10 to get version number e,g 16 = v1.6
 boolean DEBUG = 1;                       // Print serial debug
 
 //----------------------------emonTx V3 Settings---------------------------------------------------------------------------------------------------------------
@@ -330,7 +330,7 @@ void setup()
     Serial.print(vrms,0); Serial.println("V");
 
     if (ACAC) {
-      Serial.println("AC-AC detected - Real Power measure enabled");
+      Serial.println("AC-AC detected - Real Power measure enabled for CT1");
       Serial.println("assuming pwr from AC-AC (jumper closed)");
       if (USA==true) Serial.println("USA mode active");
       Serial.print("Vcal: "); Serial.println(Vcal);
