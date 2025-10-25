@@ -75,7 +75,7 @@ See: https://github.com/openenergymonitor/emonhub/blob/emon-pi/configuration.md
 static void showString (PGM_P s);
 
 #define emonTxV3                                                                          // Tell emonLib this is the emonTx V3 - don't read Vcc assume Vcc = 3.3V as is always the case on emonTx V3 eliminates bandgap error and need for calibration http://harizanov.com/2013/09/thoughts-on-avr-adc-accuracy/
-#define RF69_COMPAT 1                                                              // Set to 1 if using RFM69CW or 0 if using RFM12B
+#define RF69_COMPAT 0                                                              // Set to 1 if using RFM69CW or 0 if using RFM12B
 #include <avr/wdt.h>
 #include <JeeLib.h>                                                                      //https://github.com/jcw/jeelib
 ISR(WDT_vect) { Sleepy::watchdogEvent(); }                            // Attached JeeLib sleep function to Atmega328 watchdog -enables MCU to be put into sleep mode inbetween readings to reduce power consumption
@@ -91,7 +91,7 @@ const byte version = 34;         // firmware version divide by 10 to get version
 boolean DEBUG = 1;                       // Print serial debug
 
 //----------------------------emonTx V3 Settings---------------------------------------------------------------------------------------------------------------
-byte Vrms=                        230;            // Vrms for apparent power readings (when no AC-AC voltage sample is present)
+byte Vrms=                        250;            // Vrms for apparent power readings (when no AC-AC voltage sample is present)
 const byte Vrms_USA=              120;            // VRMS for USA apparent power
 const byte TIME_BETWEEN_READINGS = 10;            //Time between readings
 
@@ -141,7 +141,7 @@ byte numSensors;
 
 //-----------------------RFM12B / RFM69CW SETTINGS----------------------------------------------------------------------------------------------------
 byte RF_freq=RF12_433MHZ;                                           // Frequency of RF69CW module can be RF12_433MHZ, RF12_868MHZ or RF12_915MHZ. You should use the one matching the module you have.
-byte nodeID = 8;                                                    // emonTx RFM12B node ID
+byte nodeID = 10;                                                    // emonTx RFM12B node ID
 int networkGroup = 210;
 boolean RF_STATUS = 1;                                              // Enable RF
 

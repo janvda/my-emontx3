@@ -68,31 +68,37 @@
     This sketch requires the OEM RFM69CW transmit-only library "rfm69nTxLib.h" and uses the "JeeLib RFM69 Native" message format.
 */
 
+/* following 3 defines added by JVA 20251025 */
+#define RF69_433MHZ            4
+#define RF69_868MHZ            8
+#define RF69_915MHZ            9
+
 #define RFM69_JEELIB_CLASSIC 1
 #define RFM69_JEELIB_NATIVE 2
 #define RFM69_LOW_POWER_LABS 3
 
-#define RadioFormat RFM69_LOW_POWER_LABS
+#define RadioFormat RFM69_JEELIB_CLASSIC
+/* #define RadioFormat RFM69_JEELIB_CLASSIC */
 
 #define EMONTX_V34                               // Sets the I/O pin allocation. 
                                                  // use EMONTX_V2 or EMONTX_V32 or EMONTX_V34 or EMONTX_SHIELD as appropriate
                                                  // NOTE: You must still set the correct calibration coefficients
 
 //--------------------------------------------------------------------------------------------------
-// #define DEBUGGING                             // enable this line to include debugging print statements
+#define DEBUGGING                             // enable this line to include debugging print statements
                                                  //  This is turned off when SERIALOUT or EMONESP (see below) is defined.
                                                  
 #define SERIALPRINT                              // include 'human-friendly' print statement for commissioning - comment this line to exclude.
 
 // Pulse counting settings
-#define USEPULSECOUNT                            // include the ability to count pulses. Comment this line if pulse counting is not required. When enabled, pulse counting can still be turned on and off in the on-line settings.
+/* #define USEPULSECOUNT   */                 // include the ability to count pulses. Comment this line if pulse counting is not required. When enabled, pulse counting can still be turned on and off in the on-line settings.
 #define PULSEINT 1                               // Interrupt no. for pulse counting: EmonTx V2 = 0, EmonTx V3 = 1, EmonTx Shield - see Wiki
 #define PULSEPIN 3                               // Interrupt input pin: EmonTx V2 = 2, EmonTx V3 = 3, EmonTx Shield - see Wiki
 #define PULSEMINPERIOD 100                       // minimum period between pulses (ms) - default pulse output meters = 100ms
                                                  //   Set to 0 for electronic sensor with solid-state output.
                                                  
 // Output settings                               // THIS SKETCH WILL NOT WORK WITH THE RFM12B radio.
-#define RFM69CW                                  // The type of output: Radio Module, serial or none.
+#define RFM69CW                        // The type of output: Radio Module, serial or none.
                                                  // Can be RFM69CW 
                                                  //   or SERIALOUT if a wired serial connection is used (space-separated values for the
                                                  //     "direct serial" EmonHubSerialInterfacer
@@ -126,10 +132,10 @@ typedef uint8_t DeviceAddress[8];
 #include <emonEProm.h>                           // OEM EEPROM library
 
 struct {
-  byte RF_freq = RF69_433MHZ;                     // Frequency of radio module can be RFM_433MHZ, RFM_868MHZ or RFM_915MHZ. 
+  byte RF_freq = RF69_433MHZ; // RFM_433MHZ;                     // Frequency of radio module can be RFM_433MHZ, RFM_868MHZ or RFM_915MHZ. 
   byte networkGroup = 210;                       // wireless network group - needs to be same as emonBase and emonGLCD. OEM default is 210
   byte rf_on = 1;                                // RF - 0 = no RF, 1 = RF on.
-  byte nodeID = 11;                              // node ID for this emonTx. Or nodeID-1 if DIP switch 1 is ON. 
+  byte nodeID = 10;                              // node ID for this emonTx. Or nodeID-1 if DIP switch 1 is ON. 
   byte  rfPower = 25;                            // 7 = -10.5 dBm, 25 = +7 dBm for RFM12B; 0 = -18 dBm, 31 = +13 dBm for RFM69CW. Default = 25 (+7 dBm)
   double vCal  = 268.97;                         // (240V x 13) / 11.6V = 268.97 Calibration for UK AC-AC adapter 77DB-06-09, 
                                                  //   for the EU adapter use 260.00, for the USA adapter use 130.00
@@ -420,7 +426,9 @@ void setup()
   SPI.setDataMode(0);
   SPI.setClockDivider(SPI_CLOCK_DIV8);
   // initialise RFM69
+ 
   #ifdef RFM69CW
+    Serial.println(F("initialising RFM69CW..."));
     delay(200); // wait for RFM69CW POR
     if (EEProm.rf_on)
     #if RadioFormat == RFM69_LOW_POWER_LABS
