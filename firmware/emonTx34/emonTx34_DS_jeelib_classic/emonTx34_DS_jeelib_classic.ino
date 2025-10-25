@@ -102,9 +102,9 @@ const float Ical2=                90.9;                                 // (2000
 const float Ical3=                90.9;                                 // (2000 turns / 22 Ohm burden) = 90.9
 const float Ical4=                16.67;                               // (2000 turns / 120 Ohm burden) = 16.67
 
-float Vcal=                       268.97;                             // (230V x 13) / (9V x 1.2) = 276.9 Calibration for UK AC-AC adapter 77DB-06-09
+//float Vcal=                       268.97;                             // (230V x 13) / (9V x 1.2) = 276.9 Calibration for UK AC-AC adapter 77DB-06-09
 //float Vcal=276.9;
-//const float Vcal=               260;                             //  Calibration for EU AC-AC adapter 77DE-06-09
+float Vcal=               245;                             //  Calibration for EU AC-AC adapter 77DE-06-09
 const float Vcal_USA=             130.0;                             //Calibration for US AC-AC adapter 77DA-10-09
 boolean USA=false;
 
