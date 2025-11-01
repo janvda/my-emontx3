@@ -46,6 +46,23 @@
 
 ## My Setup
 
+## Hardware
+
+The 3 phases:
+
+* P1 - L1 (phase 1) => no power intensive devices like (dryer, merceded, ...)
+* P1 - L2 (phase 2) => zonnepanelen.
+* P1 - L3 (phase 3) => Mercedes , droogkast, vaatwasser
+
+The 4 CT sensors
+
+* CT wire 1 - fuse F (brown) - Solar pannels - CT1 
+* CT wire 2 - fuse K (blue) - Garage - CT2
+* CT wire 3 - fuse I (brown x 2) - dryer/washing machine - CT3 
+* CT wire 4 - fuse H (brown) - dish washer... - CT4 
+
+### Software / Firmware
+
 1. My emonTx V3.4 sends power data every 10 seconds via RFM12B at 433 mHz frequency for node 10
    * I have uploaded sketch `emonTx34_DS_jeelib_classic` of this repository
 2. which is received by my RFM12PI expansion board on [pi3one](https://github.com/janvda/pi3one).
